@@ -5,8 +5,9 @@ export class DataParser {
   }
 
   parse(io: any, data: any): any {
-    console.log(this.msgId, this.calculation(data));
+    //console.log(this.msgId, this.calculation(data));
     io.emit(this.msgId, this.calculation(data));
+    //console.log(this.msgId);
   }
 
   canParse(pid: string): boolean {

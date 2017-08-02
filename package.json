@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "clean": "rm -rf build",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && cp app/index.html build/",
     "start": "npm run build && node build/app/index.js"
   },
   "dependencies": {
