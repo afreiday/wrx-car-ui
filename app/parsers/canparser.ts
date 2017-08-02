@@ -41,7 +41,7 @@ export class CanParser extends Parser {
       return direction + '' + position;
     }),
   ];
- '' +
+
   constructor(io: any) {
     super(io);
   }
