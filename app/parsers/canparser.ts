@@ -1,25 +1,26 @@
 import { Parser } from './parser';
 import { DataParser } from './dataparser';
+import { ParserPair } from './parserpair';
 
 export class CanParser extends Parser {
-  private ACCELERATOR: string = '140';
-  private BRAKE: string = 'd1';
-  private STEERING: string = '2';
+  private ACCELERATOR = new ParserPair('140', 'ACCELERATOR');
+  private BRAKE = new ParserPair('d1', 'BRAKE');
+  private STEERING = new ParserPair('2', 'STEERING');
 
   private capablePids: string[] = [
-    this.ACCELERATOR,
-    this.BRAKE,
-    this.STEERING
+    this.ACCELERATOR.id,
+    this.BRAKE.id,
+    this.STEERING.id
   ];
 
   private parsers: DataParser[] = [
-    new DataParser(this.ACCELERATOR, 'ACCELERATOR', (data: any) => {
+    new DataParser(this.ACCELERATOR, (data: any) => {
       return data[0] / 256 * 100;
     }),
-    new DataParser(this.BRAKE, 'BRAKE', (data: any) => {
+    new DataParser(this.BRAKE, (data: any) => {
       return data[2] / 256 * 100;
     }),
-    new DataParser(this.STEERING, 'STEERING', (data: any) => {
+    new DataParser(this.STEERING, (data: any) => {
       var b1 = data[0];
       var b2 = data[1];
       var max = 32 * 256;

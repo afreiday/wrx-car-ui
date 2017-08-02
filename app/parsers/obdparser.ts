@@ -1,41 +1,42 @@
 import { Parser } from './parser';
 import { DataParser } from './dataparser';
+import { ParserPair } from './parserpair';
 
 export class ObdParser extends Parser {
   private ID_PID_REPLY = '7e8';
 
-  private ENGINE_RPM = 'c';
-  private VEHICLE_SPEED = 'd';
-  private MAF_RATE = '10';
-  private INTAKE_PRESSURE = 'b';
-  private OXYGEN_SENSOR = '24';
-  private BAROMETRIC_PRESSURE = '33';
-  private FUEL_LEVEL = '2f';
-  private COOLANT_TEMPERATURE = '5';
+  private ENGINE_RPM = new ParserPair('c', 'ENGINE_RPM');
+  private VEHICLE_SPEED = new ParserPair('d', 'VEHICLE_SPEED');
+  private MAF_RATE = new ParserPair('10', 'MAF_RATE');
+  private INTAKE_PRESSURE = new ParserPair('b', 'INTAKE_PRESSURE');
+  private OXYGEN_SENSOR = new ParserPair('24', 'OXYGEN_SENSOR');
+  private BAROMETRIC_PRESSURE = new ParserPair('33', 'BAROMETRIC_PRESSURE');
+  private FUEL_LEVEL = new ParserPair('2f', 'FUEL_LEVEL');
+  private COOLANT_TEMPERATURE = new ParserPair('5', 'COOLANT_TEMPERATURE');
 
   private parsers: DataParser[] = [
-    new DataParser(this.ENGINE_RPM, 'ENGINE_RPM', (data: any) => {
+    new DataParser(this.ENGINE_RPM, (data: any) => {
       return ((data[3] * 256) + data[4])/4;
     }),
-    new DataParser(this.VEHICLE_SPEED, 'VEHICLE_SPEED', (data: any) => {
+    new DataParser(this.VEHICLE_SPEED, (data: any) => {
       return data[3];
     }),
-    new DataParser(this.MAF_RATE, 'MAF_RATE', (data: any) => {
+    new DataParser(this.MAF_RATE, (data: any) => {
       return (data[3] * 256 + data[4]) / 100;
     }),
-    new DataParser(this.INTAKE_PRESSURE, 'INTAKE_PRESSURE', (data: any) => {
+    new DataParser(this.INTAKE_PRESSURE, (data: any) => {
       return data[3];
     }),
-    new DataParser(this.OXYGEN_SENSOR, 'OXYGEN_SENSOR', (data: any) => {
+    new DataParser(this.OXYGEN_SENSOR, (data: any) => {
       return (2/65536) / (256 * data[3] + data[4]);
     }),
-    new DataParser(this.BAROMETRIC_PRESSURE, 'BAROMETRIC_PRESSURE', (data: any) => {
+    new DataParser(this.BAROMETRIC_PRESSURE, (data: any) => {
       return data[3];
     }),
-    new DataParser(this.FUEL_LEVEL, 'FUEL_LEVEL', (data: any) => {
+    new DataParser(this.FUEL_LEVEL, (data: any) => {
       return data[3] / 2.55;
     }),
-    new DataParser(this.COOLANT_TEMPERATURE, 'COOLANT_TEMPERATURE', (data: any) => {
+    new DataParser(this.COOLANT_TEMPERATURE, (data: any) => {
       return data[3] - 40;
     }),
   ];
