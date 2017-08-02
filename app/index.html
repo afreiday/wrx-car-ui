@@ -1,0 +1,41 @@
+<html>
+
+  <head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      var socket = io();
+
+      function setup_display(data) {
+        socket.on(data, function(msg) {
+          document.getElementById(data).innerText = msg;
+        });
+      }
+
+      setup_display('accelerator_pressure');
+      setup_display('brake_pressure');
+      setup_display('steering_wheel_position');
+      setup_display('can_speed');
+      setup_display('can_rpm');
+      setup_display('can_maf_rate');
+      setup_display('can_intake_pressure');
+      setup_display('can_oxygen_sensor');
+      setup_display('can_barometric_pressure');
+
+    </script>
+  </head>
+
+  <body>
+
+    <p id="accelerator_pressure"></p>
+    <p id="brake_pressure"></p>
+    <p id="steering_wheel_position"></p>
+    <p id="can_rpm"></p>
+    <p id="can_speed"></p>
+    <p id="can_maf_rate"></p>
+    <p id="can_intake_pressure"></p>
+    <p id="can_oxygen_sensor"></p>
+    <p id="can_barometric_pressure"></p>
+
+  </body>
+
+</html>
