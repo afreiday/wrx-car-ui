@@ -10,6 +10,8 @@ export class ObdParser extends Parser {
   private INTAKE_PRESSURE = 'b';
   private OXYGEN_SENSOR = '24';
   private BAROMETRIC_PRESSURE = '33';
+  private FUEL_LEVEL = '2f';
+  private COOLANT_TEMPERATURE = '5';
 
   private parsers: DataParser[] = [
     new DataParser(this.ENGINE_RPM, 'ENGINE_RPM', (data: any) => {
@@ -29,7 +31,13 @@ export class ObdParser extends Parser {
     }),
     new DataParser(this.BAROMETRIC_PRESSURE, 'BAROMETRIC_PRESSURE', (data: any) => {
       return data[3];
-    })
+    }),
+    new DataParser(this.FUEL_LEVEL, 'FUEL_LEVEL', (data: any) => {
+      return data[3] / 2.55;
+    }),
+    new DataParser(this.COOLANT_TEMPERATURE, 'COOLANT_TEMPERATURE', (data: any) => {
+      return data[3] - 40;
+    }),
   ];
 
   constructor(io: any) {
@@ -37,10 +45,16 @@ export class ObdParser extends Parser {
   }
 
   parseMessage(msg: any) {
+    let found = false;
     for(let parser of this.parsers) {
       if (parser.canParse(msg.data[2].toString(16))) {
         parser.parse(this.io, msg.data);
+        found = true;
       }
+    }
+
+    if (!found) {
+      console.log('Got unparsed: ' + msg.data[2].toString(16));
     }
   }
 
