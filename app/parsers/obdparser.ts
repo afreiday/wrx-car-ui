@@ -1,5 +1,5 @@
 import { Parser } from './parser';
-import { DataParser } from './dataparser';
+import { DataParser, TemperatureParser, PassthroughParser, PercentageParser } from './data';
 import { ParserPair } from './parserpair';
 
 export class ObdParser extends Parser {
@@ -13,31 +13,39 @@ export class ObdParser extends Parser {
   private BAROMETRIC_PRESSURE = new ParserPair('33', 'BAROMETRIC_PRESSURE');
   private FUEL_LEVEL = new ParserPair('2f', 'FUEL_LEVEL');
   private COOLANT_TEMPERATURE = new ParserPair('5', 'COOLANT_TEMPERATURE');
+  private ENGINE_LOAD = new ParserPair('4', 'ENGINE_LOAD');
+  private TIMING_ADVANCE = new ParserPair('e', 'TIMING_ADVANCE');
+  private CATALYST_TEMPERATURE = new ParserPair('3c', 'CATALYST_TEMPERATURE');
+  private OIL_TEMPERATURE = new ParserPair('5c', 'OIL_TEMPERATURE');
+  private AMBIENT_AIR_TEMPERATURE = new ParserPair('46', 'AMBIENT_AIR_TEMPERATURE');
+  private ENGINE_RUNTIME = new ParserPair('1f', 'ENGINE_RUNTIME');
 
   private parsers: DataParser[] = [
-    new DataParser(this.ENGINE_RPM, (data: any) => {
-      return ((data[3] * 256) + data[4])/4;
+    new PassthroughParser(this.VEHICLE_SPEED),
+    new PassthroughParser(this.INTAKE_PRESSURE),
+    new PassthroughParser(this.BAROMETRIC_PRESSURE),
+    new PercentageParser(this.FUEL_LEVEL),
+    new TemperatureParser(this.COOLANT_TEMPERATURE),
+    new PercentageParser(this.ENGINE_LOAD),
+    new TemperatureParser(this.OIL_TEMPERATURE),
+    new TemperatureParser(this.AMBIENT_AIR_TEMPERATURE),
+    new DataParser(this.TIMING_ADVANCE, (data: any) => {
+      return (data[3] / 1.28) - 100;
     }),
-    new DataParser(this.VEHICLE_SPEED, (data: any) => {
-      return data[3];
-    }),
-    new DataParser(this.MAF_RATE, (data: any) => {
-      return (data[3] * 256 + data[4]) / 100;
-    }),
-    new DataParser(this.INTAKE_PRESSURE, (data: any) => {
-      return data[3];
+    new DataParser(this.CATALYST_TEMPERATURE, (data: any) => {
+      return ((256 * data[3] + data[4]) / 10) - 40;
     }),
     new DataParser(this.OXYGEN_SENSOR, (data: any) => {
       return (2/65536) / (256 * data[3] + data[4]);
     }),
-    new DataParser(this.BAROMETRIC_PRESSURE, (data: any) => {
-      return data[3];
+    new DataParser(this.MAF_RATE, (data: any) => {
+      return (data[3] * 256 + data[4]) / 100;
     }),
-    new DataParser(this.FUEL_LEVEL, (data: any) => {
-      return data[3] / 2.55;
+    new DataParser(this.ENGINE_RPM, (data: any) => {
+      return ((data[3] * 256) + data[4]) / 4;
     }),
-    new DataParser(this.COOLANT_TEMPERATURE, (data: any) => {
-      return data[3] - 40;
+    new DataParser(this.ENGINE_RUNTIME, (data: any) => {
+      return 256 * data[3] + data[4];
     }),
   ];
 

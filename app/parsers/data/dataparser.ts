@@ -1,4 +1,4 @@
-import { ParserPair } from './parserpair';
+import { ParserPair } from '../parserpair';
 
 export class DataParser {
   constructor(private pair: ParserPair, private calculation: (data: any) => any) {

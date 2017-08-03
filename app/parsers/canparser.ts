@@ -1,5 +1,5 @@
 import { Parser } from './parser';
-import { DataParser } from './dataparser';
+import { DataParser } from './data/dataparser';
 import { ParserPair } from './parserpair';
 
 export class CanParser extends Parser {
