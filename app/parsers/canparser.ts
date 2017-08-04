@@ -1,16 +1,22 @@
 import { Parser } from './parser';
-import { DataParser } from './data/dataparser';
+import { DataParser, CanSpeedParser } from './data';
 import { ParserPair } from './parserpair';
 
 export class CanParser extends Parser {
   private ACCELERATOR = new ParserPair('140', 'ACCELERATOR');
   private BRAKE = new ParserPair('d1', 'BRAKE');
   private STEERING = new ParserPair('2', 'STEERING');
+  private CAN_SPEED = new ParserPair('d1', 'CAN_SPEED');
+  private WHEEL_SPEED_LF = new ParserPair('d4', 'WHEEL_SPEED_LF');
+  private WHEEL_SPEED_RF = new ParserPair('d4', 'WHEEL_SPEED_RF');
+  private WHEEL_SPEED_LR = new ParserPair('d4', 'WHEEL_SPEED_LR');
+  private WHEEL_SPEED_RR = new ParserPair('d4', 'WHEEL_SPEED_RR');
 
   private capablePids: string[] = [
     this.ACCELERATOR.id,
     this.BRAKE.id,
-    this.STEERING.id
+    this.STEERING.id,
+    this.WHEEL_SPEED_LF.id,
   ];
 
   private parsers: DataParser[] = [
@@ -41,6 +47,11 @@ export class CanParser extends Parser {
 
       return direction + '' + position;
     }),
+    new CanSpeedParser(this.CAN_SPEED, 1),
+    new CanSpeedParser(this.WHEEL_SPEED_LF, 1),
+    new CanSpeedParser(this.WHEEL_SPEED_RF, 2),
+    new CanSpeedParser(this.WHEEL_SPEED_LR, 3),
+    new CanSpeedParser(this.WHEEL_SPEED_RR, 4),
   ];
 
   constructor(io: any) {

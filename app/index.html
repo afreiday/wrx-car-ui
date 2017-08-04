@@ -14,6 +14,11 @@
       setup_display('ACCELERATOR');
       setup_display('BRAKE');
       setup_display('STEERING');
+      setup_display('CAN_SPEED');
+      setup_display('WHEEL_SPEED_LF');
+      setup_display('WHEEL_SPEED_RF');
+      setup_display('WHEEL_SPEED_LR');
+      setup_display('WHEEL_SPEED_RR');
       setup_display('VEHICLE_SPEED');
       setup_display('ENGINE_RPM');
       setup_display('MAF_RATE');
@@ -31,6 +36,13 @@
     <p>Accelerator pressure: <span id="accelerator"></span>%</p>
     <p>Brake pressure: <span id="brake"></span>%</p>
     <p>Steering wheel position: <span id="steering"></span></p>
+    <p>Speed: <span id="can_speed"></span> km/h</p>
+    <p>Wheel Speeds (LF RF LR RR):<br />
+      <span id="wheel_speed_lf"></span> km/h<br />
+      <span id="wheel_speed_rf"></span> km/h<br />
+      <span id="wheel_speed_lr"></span> km/h<br />
+      <span id="wheel_speed_rr"></span> km/h
+    </p>
     <p>&nbsp;</p>
 
     <p>OBD</p>
