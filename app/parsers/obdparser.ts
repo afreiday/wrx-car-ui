@@ -19,14 +19,16 @@ export class ObdParser extends Parser {
   private OIL_TEMPERATURE = new ParserPair('5c', 'OIL_TEMPERATURE');
   private AMBIENT_AIR_TEMPERATURE = new ParserPair('46', 'AMBIENT_AIR_TEMPERATURE');
   private ENGINE_RUNTIME = new ParserPair('1f', 'ENGINE_RUNTIME');
+  private ACCELERATOR_PEDAL_POSITON = new ParserPair('49', 'ACCELERATOR_PEDAL_POSITON');
 
   private parsers: DataParser[] = [
     new PassthroughParser(this.VEHICLE_SPEED),
     new PassthroughParser(this.INTAKE_PRESSURE),
     new PassthroughParser(this.BAROMETRIC_PRESSURE),
     new PercentageParser(this.FUEL_LEVEL),
-    new TemperatureParser(this.COOLANT_TEMPERATURE),
     new PercentageParser(this.ENGINE_LOAD),
+    new PercentageParser(this.ACCELERATOR_PEDAL_POSITON),
+    new TemperatureParser(this.COOLANT_TEMPERATURE),
     new TemperatureParser(this.OIL_TEMPERATURE),
     new TemperatureParser(this.AMBIENT_AIR_TEMPERATURE),
     new DataParser(this.TIMING_ADVANCE, (data: any) => {
