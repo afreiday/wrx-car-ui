@@ -1,26 +1,29 @@
 import * as express from 'express';
 import * as socketio from 'socket.io';
 import * as http from 'http';
-import * as can from 'socketcan';
+import * as can from 'rawcan';
 
-import { Parser, ObdParser, CanParser } from './parsers';
+import { Parser, ObdParser, CanParser, ObdPid } from './parsers';
+import { ObdRequester } from './obdrequester';
 
 
 class Server {
   private app: any;
   private server: any;
   private io: any;
-  private channel: any;
+  private socket: any;
 
   private parsers: Parser[];
+  private requesters: ObdRequester[] = [];
 
-  constructor(private canSocket: string = "vcan0", private port: number = 3000) {
+  constructor(private canSocket: string = 'vcan0', private port: number = 3000) {
     this.app = express();
     this.server = http.createServer(this.app);
     this.io = socketio(this.server);
-    this.channel = can.createRawChannel(canSocket, true);
+    this.socket = can.createSocket(canSocket);
 
     this.setup();
+    this.initializeRequesters();
     this.initializeParsers();
   }
 
@@ -34,8 +37,10 @@ class Server {
       this.io.emit('connected', 'connected');
     });
 
-    this.channel.addListener('onMessage', (data: any) => {
-      for(let parser of this.parsers) {
+    this.socket.on('message', (id: any, buffer: any) => {
+      const data = { id: id, data: buffer };
+
+      for (let parser of this.parsers) {
         if (parser.canParse(data)) {
           parser.parseMessage(data);
         }
@@ -50,9 +55,14 @@ class Server {
     ];
   }
 
+  private initializeRequesters() {
+    for (let pid of ObdParser.pids) {
+      this.requesters.push(new ObdRequester(pid, this.socket));
+    }
+  }
+
   run() {
     var _this = this;
-    this.channel.start();
     this.server.listen(this.port, () => {
       console.log('Listening on ' + _this.port);
     });

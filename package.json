@@ -12,8 +12,8 @@
     "@types/node": "^8.0.18",
     "@types/socket.io": "^1.4.29",
     "express": "^4.15.3",
+    "rawcan": "^1.1.4",
     "socket.io": "^2.0.3",
-    "socketcan": "^2.2.0",
     "tslint": "^5.5.0",
     "typescript": "^2.4.2",
     "typings": "^2.1.1"
