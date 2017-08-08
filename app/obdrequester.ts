@@ -17,7 +17,7 @@ export class ObdRequester {
   constructor(private pid: ObdPid, private socket: any) {
     this.timer = setInterval(this.request, this.pid.requestInterval * 1000, this.socket, this.pid);
     this._active = true;
-    this.request();
+    this.request(socket, pid);
   }
 
   public cancel() {
