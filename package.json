@@ -8,9 +8,11 @@
     "start": "npm run build && node build/app/index.js"
   },
   "dependencies": {
+    "@types/command-line-args": "^4.0.0",
     "@types/express": "^4.0.36",
     "@types/node": "^8.0.18",
     "@types/socket.io": "^1.4.29",
+    "command-line-args": "^4.0.7",
     "express": "^4.15.3",
     "rawcan": "^1.1.4",
     "socket.io": "^2.0.3",
