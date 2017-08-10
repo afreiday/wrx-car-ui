@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as socketio from 'socket.io';
 import * as http from 'http';
 import * as can from 'rawcan';
+import * as command_line_args from 'command-line-args';
 
 import { Parser, ObdParser, CanParser, ObdPid } from './parsers';
 import { ObdRequester } from './obdrequester';
@@ -71,8 +72,14 @@ class Server {
   }
 }
 
-const args = process.argv;
-let socket: string = args[2] ? args[2] : Server.DEFAULT_SOCKET;
-let port: number = args[3] ? parseInt(args[3]) : Server.DEFAULT_PORT;
+const commandArgs = [
+  { name: 'socket', alias: 's', type: String },
+  { name: 'port', alias: 'p', type: Number }
+];
+
+const args: any = command_line_args(commandArgs);
+
+let socket: string = args.socket || Server.DEFAULT_SOCKET;
+let port: number = args.port || Server.DEFAULT_PORT;
 
 new Server(socket, port).run();
