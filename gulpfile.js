@@ -20,17 +20,14 @@ gulp.task('typescript', function() {
 
 gulp.task('build', ['sass', 'typescript']);
 
-gulp.task('run', function() {
+gulp.task('start', ['build'], function() {
   nodemon({
-    script: 'build/index.js'
+    script: 'build/index.js',
+    watch: 'build'
   });
 });
 
-gulp.task('start', ['build', 'run']);
-
-gulp.task('watch', function() {
+gulp.task('dev', ['start'], function() {
   gulp.watch('client/style/**/*.scss', ['sass']);
   gulp.watch('app/**/*.ts', ['typescript']);
 });
-
-gulp.task('dev', ['start', 'watch']);
