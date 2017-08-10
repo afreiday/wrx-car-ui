@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "clean": "rm -rf build",
-    "build": "tsc -p tsconfig.json && cp app/index.html build/",
+    "build": "tsc -p tsconfig.json",
     "start": "npm run build && node build/app/index.js"
   },
   "dependencies": {
@@ -17,5 +17,11 @@
     "tslint": "^5.5.0",
     "typescript": "^2.4.2",
     "typings": "^2.1.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-typescript": "^3.2.1"
   }
 }

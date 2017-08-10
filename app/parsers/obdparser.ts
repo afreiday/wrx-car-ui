@@ -62,7 +62,7 @@ export class ObdParser extends Parser {
       return (data[3] * 256 + data[4]) / 100;
     }),
     new DataParser(ObdParser.ENGINE_RPM, (data: any) => {
-      return ((data[3] * 256) + data[4]) / 4;
+      return parseInt('' + (((data[3] * 256) + data[4]) / 4));
     }),
     new DataParser(ObdParser.ENGINE_RUNTIME, (data: any) => {
       return 256 * data[3] + data[4];

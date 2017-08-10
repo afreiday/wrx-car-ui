@@ -36,14 +36,38 @@
       setup_display('ACCELERATOR_PEDAL_POSITON');
 
     </script>
+
+    <style type="text/css">@import 'style.css';</style>
   </head>
 
   <body>
+
+    <div id="screen-guages" class="screen">
+      <div class="guage-container left">
+        <div class="guage">
+          <div class="value-display">
+            <span class="value" id="engine_rpm"></span><br />
+            <span class="units">rpm</span>
+          </div>
+        </div>
+      </div>
+      <div class="car">
+      </div>
+      <div class="guage-container right">
+        <div class="guage">
+          <div class="value-display">
+            <span class="value" id="can_speed"></span><br />
+            <span class="units">km/h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <p>CAN</p>
     <p>Accelerator pressure: <span id="accelerator"></span>%</p>
     <p>Brake pressure: <span id="brake"></span>%</p>
     <p>Steering wheel position: <span id="steering"></span></p>
-    <p>Speed: <span id="can_speed"></span> km/h</p>
+    <!--<p>Speed: <span id="can_speed"></span> km/h</p>-->
     <p>Wheel Speeds (LF RF LR RR):<br />
       <span id="wheel_speed_lf"></span> km/h<br />
       <span id="wheel_speed_rf"></span> km/h<br />
@@ -54,7 +78,7 @@
     <p>&nbsp;</p>
 
     <p>OBD</p>
-    <p>Engine RPM: <span id="engine_rpm"></span> rpm</p>
+    <!--<p>Engine RPM: <span id="engine_rpm"></span> rpm</p>-->
     <p>Speed: <span id="vehicle_speed"></span> km/h</p>
     <p>MAF rate: <span id="maf_rate"></span> grams/sec</p>
     <p>Intake pressure: <span id="intake_pressure"></span> kPa</p>

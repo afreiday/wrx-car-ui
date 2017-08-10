@@ -29,8 +29,10 @@ class Server {
 
   private setup() {
     this.app.get('/', (req: any, res: any) => {
-      res.sendFile('index.html', { root: __dirname + '../../' });
+      res.sendFile('index.html', { root: __dirname + '/../client/' });
     });
+
+    this.app.use(express.static('client/build'));
 
     this.io.on('connection', (socket: any) => {
       console.log('connected');
