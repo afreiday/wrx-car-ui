@@ -6,8 +6,10 @@ import * as can from 'rawcan';
 import { Parser, ObdParser, CanParser, ObdPid } from './parsers';
 import { ObdRequester } from './obdrequester';
 
-
 class Server {
+  public static readonly DEFAULT_SOCKET: string = 'vcan0';
+  public static readonly DEFAULT_PORT: number = 3000;
+
   private app: any;
   private server: any;
   private io: any;
@@ -69,4 +71,8 @@ class Server {
   }
 }
 
-new Server().run();
+const args = process.argv;
+let socket: string = args[2] ? args[2] : Server.DEFAULT_SOCKET;
+let port: number = args[3] ? parseInt(args[3]) : Server.DEFAULT_PORT;
+
+new Server(socket, port).run();
