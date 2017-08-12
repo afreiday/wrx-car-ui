@@ -1,5 +1,10 @@
 <img src="./images/car-overhead.png" />
 
+<div class="tire left"
+  [style.transform]="'rotate(' + tire_rotation() + 'deg)'"></div>
+<div class="tire right"
+  [style.transform]="'rotate(' + tire_rotation() + 'deg)'"></div>
+
 <div class="light front headlight left" *ngIf="headlights_on()"></div>
 <div class="light front headlight right" *ngIf="headlights_on()"></div>
 

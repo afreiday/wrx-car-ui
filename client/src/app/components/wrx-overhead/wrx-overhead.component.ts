@@ -26,5 +26,12 @@ export class WrxOverheadComponent {
     return this.state.get('turn_signal') === 'R';
   }
 
+  public tire_rotation() {
+    var steering = this.state.get('steering');
+    var direction = steering.substring(0, 1);
+    var amount = steering.substring(1) / 50;
+
+    return 15 * amount * (direction === 'L' ? -1 : 1);
+  }
 }
 

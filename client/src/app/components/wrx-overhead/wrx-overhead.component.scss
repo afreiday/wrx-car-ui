@@ -6,6 +6,24 @@ $brake-colour: #ff0000;
   display: inline-block;
   position: relative;
 
+  .tire {
+    position: absolute;
+    background: url('./images/tire.png') no-repeat top center;
+    background-size: contain;
+    width: 50px;
+    height: 75px;
+    top: 15%;
+    z-index: -100;
+
+    &.left {
+      left: 4%;
+    }
+
+    &.right {
+      right: 6.5%;
+    }
+  }
+
   .light {
     z-index: -100;
     position: absolute;
