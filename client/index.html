@@ -21,9 +21,17 @@ body {
     <script>
       var socket = io();
 
+      var state = {};
+
       function setup_display(data) {
         socket.on(data, function(msg) {
-          document.getElementById(data.toLowerCase()).innerText = msg;
+          var el = document.getElementById(data.toLowerCase());
+          if (el) {
+            el.innerText = msg;
+          }
+          state[data.toLowerCase()] = msg;
+
+          window.dispatchEvent(new CustomEvent('state_update', { state:  state }));
         });
       }
 
@@ -78,7 +86,7 @@ body {
     </div>
     -->
 
-    <div style="clear: both">
+    <div style="width: 40%; float: right;">
       <p>CAN</p>
       <p>Accelerator pressure: <span id="accelerator"></span>%</p>
       <p>Brake pressure: <span id="brake"></span>%</p>
