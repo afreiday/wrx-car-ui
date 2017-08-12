@@ -1,6 +1,7 @@
 <html>
 
   <head>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
@@ -34,13 +35,12 @@
       setup_display('TIMING_ADVANCE');
       setup_display('CATALYST_TEMPERATURE');
       setup_display('ACCELERATOR_PEDAL_POSITON');
-
     </script>
-
-    <style type="text/css">@import 'style.css';</style>
   </head>
 
   <body>
+
+    <wrx-app></wrx-app>
 
     <div id="screen-guages" class="screen">
       <div class="guage-container left">
@@ -93,6 +93,11 @@
     <p>Catalyst temperature: <span id="catalyst_temperature"></span>&deg;C</p>
     <p>Engine runtime: <span id="engine_runtime"></span> sec</p>
     <p>Accelerator pedal position: <span id="accelerator_pedal_positon"></span>%</p>
+
+		<!-- angular -->
+		<script src="polyfills.js"></script>
+		<script src="vendor.js"></script>
+		<script src="app.js"></script>
 
   </body>
 
