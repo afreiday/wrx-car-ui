@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var ts = require('gulp-typescript');
 var nodemon = require('gulp-nodemon');
 var webpack = require('webpack-stream');
+var rimraf = require('rimraf');
 
 gulp.task('typescript', function() {
   var project = ts.createProject('tsconfig.app.json');
@@ -11,7 +12,8 @@ gulp.task('typescript', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('webpack', function() {
+gulp.task('webpack', function(cb) {
+  rimraf('./dist', cb);
   gulp.src('./client/src/vendor.ts')
     .pipe(webpack({
       entry: {
@@ -38,13 +40,12 @@ gulp.task('webpack', function() {
           },
           {
             test: /\.html$/,
-            use: [{
-              loader: 'html-loader'
-            }]
+            loaders: ['to-string-loader', 'html-loader']
           },
+          { test: /\.png$/, use: [ "url-loader?mimetype=image/png" ] },
 					{
 							test: /\.scss$/,
-							loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
+							loaders: ['to-string-loader', 'css-loader', 'sass-loader']
 					}
         ]
       }
@@ -63,5 +64,11 @@ gulp.task('start', ['build'], function() {
 
 gulp.task('dev', ['start'], function() {
   gulp.watch('app/**/*.ts', ['typescript']);
-  gulp.watch('client/src/**/*.ts', ['webpack']);
+  gulp.watch(
+    [
+      'client/src/**/*.ts',
+      'client/src/**/*.html',
+      'client/src/**/*.scss'
+    ], ['webpack']
+  );
 });

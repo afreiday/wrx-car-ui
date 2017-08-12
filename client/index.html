@@ -2,6 +2,21 @@
 
   <head>
 
+    <style>
+body {
+  background: rgb(37,37,37); /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%, rgba(26,26,26,1) 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#252525', endColorstr='#1a1a1a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: #4e4e4e;
+}
+      </style>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
@@ -40,8 +55,9 @@
 
   <body>
 
-    <wrx-app></wrx-app>
+    <div wrx-app></div>
 
+    <!--
     <div id="screen-guages" class="screen">
       <div class="guage-container left">
         <div class="guage">
@@ -50,8 +66,6 @@
             <span class="units">rpm</span>
           </div>
         </div>
-      </div>
-      <div class="car">
       </div>
       <div class="guage-container right">
         <div class="guage">
@@ -62,37 +76,40 @@
         </div>
       </div>
     </div>
+    -->
 
-    <p>CAN</p>
-    <p>Accelerator pressure: <span id="accelerator"></span>%</p>
-    <p>Brake pressure: <span id="brake"></span>%</p>
-    <p>Steering wheel position: <span id="steering"></span></p>
-    <!--<p>Speed: <span id="can_speed"></span> km/h</p>-->
-    <p>Wheel Speeds (LF RF LR RR):<br />
-      <span id="wheel_speed_lf"></span> km/h<br />
-      <span id="wheel_speed_rf"></span> km/h<br />
-      <span id="wheel_speed_lr"></span> km/h<br />
-      <span id="wheel_speed_rr"></span> km/h
-    </p>
-    <p>Turn signal: <span id="turn_signal"></span></p>
-    <p>&nbsp;</p>
+    <div style="clear: both">
+      <p>CAN</p>
+      <p>Accelerator pressure: <span id="accelerator"></span>%</p>
+      <p>Brake pressure: <span id="brake"></span>%</p>
+      <p>Steering wheel position: <span id="steering"></span></p>
+      <!--<p>Speed: <span id="can_speed"></span> km/h</p>-->
+      <p>Wheel Speeds (LF RF LR RR):<br />
+        <span id="wheel_speed_lf"></span> km/h<br />
+        <span id="wheel_speed_rf"></span> km/h<br />
+        <span id="wheel_speed_lr"></span> km/h<br />
+        <span id="wheel_speed_rr"></span> km/h
+      </p>
+      <p>Turn signal: <span id="turn_signal"></span></p>
+      <p>&nbsp;</p>
 
-    <p>OBD</p>
-    <!--<p>Engine RPM: <span id="engine_rpm"></span> rpm</p>-->
-    <p>Speed: <span id="vehicle_speed"></span> km/h</p>
-    <p>MAF rate: <span id="maf_rate"></span> grams/sec</p>
-    <p>Intake pressure: <span id="intake_pressure"></span> kPa</p>
-    <p>Oxygen sensor: <span id="oxygen_sensor"></span></p>
-    <p>Barometric pressure: <span id="barometric_pressure"></span> kPa</p>
-    <p>Fuel level: <span id="fuel_level"></span>%</p>
-    <p>Coolant temperature: <span id="coolant_temperature"></span>&deg;C</p>
-    <p>Engine load: <span id="engine_load"></span>%</p>
-    <p>Oil temperature: <span id="oil_temperature"></span>&deg;C</p>
-    <p>Ambient air temperature: <span id="ambient_air_temperature"></span>&deg;C</p>
-    <p>Timing advance: <span id="timing_advance"></span></p>
-    <p>Catalyst temperature: <span id="catalyst_temperature"></span>&deg;C</p>
-    <p>Engine runtime: <span id="engine_runtime"></span> sec</p>
-    <p>Accelerator pedal position: <span id="accelerator_pedal_positon"></span>%</p>
+      <p>OBD</p>
+      <!--<p>Engine RPM: <span id="engine_rpm"></span> rpm</p>-->
+      <p>Speed: <span id="vehicle_speed"></span> km/h</p>
+      <p>MAF rate: <span id="maf_rate"></span> grams/sec</p>
+      <p>Intake pressure: <span id="intake_pressure"></span> kPa</p>
+      <p>Oxygen sensor: <span id="oxygen_sensor"></span></p>
+      <p>Barometric pressure: <span id="barometric_pressure"></span> kPa</p>
+      <p>Fuel level: <span id="fuel_level"></span>%</p>
+      <p>Coolant temperature: <span id="coolant_temperature"></span>&deg;C</p>
+      <p>Engine load: <span id="engine_load"></span>%</p>
+      <p>Oil temperature: <span id="oil_temperature"></span>&deg;C</p>
+      <p>Ambient air temperature: <span id="ambient_air_temperature"></span>&deg;C</p>
+      <p>Timing advance: <span id="timing_advance"></span></p>
+      <p>Catalyst temperature: <span id="catalyst_temperature"></span>&deg;C</p>
+      <p>Engine runtime: <span id="engine_runtime"></span> sec</p>
+      <p>Accelerator pedal position: <span id="accelerator_pedal_positon"></span>%</p>
+    </div>
 
 		<!-- angular -->
 		<script src="polyfills.js"></script>

@@ -37,6 +37,8 @@ class Server {
 
     this.app.use(express.static('dist'));
 
+    this.app.use(express.static('client/images'));
+
     this.io.on('connection', (socket: any) => {
       console.log('connected');
       this.io.emit('connected', 'connected');

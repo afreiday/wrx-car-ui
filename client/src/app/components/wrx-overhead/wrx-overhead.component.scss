@@ -1,0 +1,47 @@
+:host {
+  display: inline-block;
+  position: relative;
+
+  .light {
+    z-index: -100;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+
+    &.front {
+      top: 6%;
+
+      &.left {
+        left: 20%;
+      }
+
+      &.right {
+        right: 20%;
+      }
+    }
+
+    &.rear {
+      bottom: 6%;
+
+      &.left {
+        left: 20%;
+      }
+
+      &.right {
+        right: 20%;
+      }
+    }
+
+    &.headlight {
+      box-shadow: 0px -60px 200px 60px #fff;
+    }
+
+    &.turn-signal {
+      box-shadow: 0px -15px 100px 30px #ff9900;
+    }
+
+    &.brake {
+      box-shadow: 0px 15px 150px 25px #ff0000;
+    }
+  }
+}
