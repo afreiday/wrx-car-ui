@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: '[wrx-overhead]',
@@ -6,29 +7,24 @@ import { Component, HostListener } from '@angular/core';
   styles: [ require('./wrx-overhead.component.scss') ]
 })
 export class WrxOverheadComponent {
-  public state: any;
 
-  constructor() { }
+  constructor(private state: StateService) { }
 
   public headlights_on() {
     return true;
   }
 
   public brakes_on() {
-    return parseInt(this.state.brake) > 0;
+    return parseInt(this.state.get('brake')) > 0;
   }
 
   public turn_signal_left() {
-    return this.state.turn_signal === 'L';
+    return this.state.get('turn_signal') === 'L';
   }
 
   public turn_signal_right() {
-    return this.state.turn_signal === 'R';
+    return this.state.get('turn_signal') === 'R';
   }
 
-  @HostListener('window:state_update', ['$event'])
-  stateListener(event: any) {
-    this.state = (window as any).state;
-  }
 }
 

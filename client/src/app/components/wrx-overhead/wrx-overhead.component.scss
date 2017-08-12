@@ -1,3 +1,7 @@
+$headlight-colour: #fff;
+$turn-signal-colour: #ff9900;
+$brake-colour: #ff0000;
+
 :host {
   display: inline-block;
   position: relative;
@@ -30,18 +34,39 @@
       &.right {
         right: 20%;
       }
+
+      &.center {
+        left: 50%;
+        right: 50%;
+      }
+    }
+
+    &.mirror {
+      top: 38%;
+
+      &.left {
+        left: 15%;
+      }
+
+      &.right {
+        right: 15%;
+      }
     }
 
     &.headlight {
-      box-shadow: 0px -60px 200px 60px #fff;
+      box-shadow: 0px -70px 200px 30px $headlight-colour;
     }
 
     &.turn-signal {
-      box-shadow: 0px -15px 100px 30px #ff9900;
+      box-shadow: 0px -15px 150px 20px $turn-signal-colour;
+
+      &.mirror {
+        box-shadow: 0px -15px 75px 10px $turn-signal-colour;
+      }
     }
 
     &.brake {
-      box-shadow: 0px 15px 150px 25px #ff0000;
+      box-shadow: 0px 15px 150px 25px $brake-colour;
     }
   }
 }

@@ -6,5 +6,12 @@
 <div class="light front turn-signal left" *ngIf="turn_signal_left()"></div>
 <div class="light front turn-signal right" *ngIf="turn_signal_right()"></div>
 
+<div class="light mirror turn-signal left" *ngIf="turn_signal_left()"></div>
+<div class="light mirror turn-signal right" *ngIf="turn_signal_right()"></div>
+
+<div class="light rear turn-signal left" *ngIf="turn_signal_left()"></div>
+<div class="light rear turn-signal right" *ngIf="turn_signal_right()"></div>
+
 <div class="light rear brake left" *ngIf="brakes_on()"></div>
+<div class="light rear brake center" *ngIf="brakes_on()"></div>
 <div class="light rear brake right" *ngIf="brakes_on()"></div>
