@@ -1,0 +1,23 @@
+:host {
+  background: #303030;
+  border: 1px solid #454545;
+  border-radius: 50%;
+
+  div {
+    text-align: center;
+    width: 100%;
+
+    &.wrapper {
+      position: absolute;
+      top: 25%;
+    }
+
+    &.value {
+      font-size: 6em;
+    }
+
+    &.unit {
+      font-size: 2em;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent, WrxOverheadComponent } from './components';
+import { AppComponent, WrxOverheadComponent, BasicGuageComponent } from './components';
 import { StateService } from './services/state.service';
 
 @NgModule({
@@ -9,7 +9,8 @@ import { StateService } from './services/state.service';
   ],
   declarations: [
     AppComponent,
-    WrxOverheadComponent
+    WrxOverheadComponent,
+    BasicGuageComponent
   ],
   bootstrap: [
 		AppComponent

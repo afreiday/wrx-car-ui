@@ -62,6 +62,16 @@ gulp.task('start', ['build'], function() {
   });
 });
 
+gulp.task('watch', function() {
+  gulp.watch(
+    [
+      'client/src/**/*.ts',
+      'client/src/**/*.html',
+      'client/src/**/*.scss'
+    ], ['webpack']
+  );
+});
+
 gulp.task('dev', ['start'], function() {
   gulp.watch('app/**/*.ts', ['typescript']);
   gulp.watch(

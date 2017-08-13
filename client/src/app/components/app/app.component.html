@@ -1,1 +1,11 @@
-<div wrx-overhead></div>
+<div class="container guage left">
+  <div basic-guage [value]="getRPM()" [unit]="'rpm'"></div>
+</div>
+
+<div class="container road overhead">
+  <div wrx-overhead></div>
+</div>
+
+<div class="container guage right">
+  <div basic-guage [value]="getSpeed()" [unit]="'km/h'"></div>
+</div>
