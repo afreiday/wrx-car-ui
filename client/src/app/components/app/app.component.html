@@ -1,5 +1,6 @@
 <div class="container guage left">
-  <div basic-guage [value]="getRPM()" [unit]="'rpm'"></div>
+  <div basic-guage [value]="getRPM()" [unit]="'rpm'" [valueMax]="7000" class="main"></div>
+  <div basic-guage [value]="getAccelerator()" [unit]="'%'" [valueMax]="100" class="secondary"></div>
 </div>
 
 <div class="container road overhead">
@@ -7,5 +8,6 @@
 </div>
 
 <div class="container guage right">
-  <div basic-guage [value]="getSpeed()" [unit]="'km/h'"></div>
+  <div basic-guage [value]="getSpeed()" [unit]="'km/h'" class="main"></div>
+  <div basic-guage [value]="getBrake()" [unit]="'%'" [valueMax]="100" class="secondary"></div>
 </div>

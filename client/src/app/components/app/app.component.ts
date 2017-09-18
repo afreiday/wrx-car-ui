@@ -17,6 +17,14 @@ export class AppComponent {
     return parseInt(this.state.get('can_speed') || 0);
   }
 
+  public getAccelerator() {
+    return parseInt(this.state.get('accelerator') || 0);
+  }
+
+  public getBrake() {
+    return parseInt(this.state.get('brake') || 0);
+  }
+
   @HostListener('window:state_update', ['$event'])
   stateListener(event: any) {
     this.state.updateState(event);

@@ -12,15 +12,23 @@
     &.overhead {
       text-align: center;
       z-index: 1000;
-
-      &.road {
-        background: #303030;
-        border-left: 1px solid #a9a9a9;
-        border-right: 1px solid #a9a9a9;
-      }
+      background: #303030;
+      border-left: 1px solid #a9a9a9;
+      border-right: 1px solid #a9a9a9;
 
       [wrx-overhead] {
-        top: 25%;
+        top: 17%;
+      }
+
+      .road {
+        display: none;
+        width: 50%;
+        float: left;
+        height: 500%;
+        border-right: 10px dashed #585858;
+        position: absolute;
+        top: 0;
+        z-index: -100;
       }
     }
 
@@ -30,17 +38,30 @@
       [basic-guage] {
         position: absolute;
         transform: translateY(50%);
-        bottom: 50%;
+        bottom: 45%;
         width: 125%;
         height: 500px;
+
+        &.secondary {
+          bottom: auto;
+          top: -10%;
+        }
       }
 
       &.left [basic-guage] {
         right: -25%;
+
+        &.secondary {
+          right: -5%;
+        }
       }
 
       &.right [basic-guage] {
         left: -25%;
+
+        &.secondary {
+          left: -5%;
+        }
       }
     }
   }
