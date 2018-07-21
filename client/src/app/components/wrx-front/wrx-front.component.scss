@@ -1,0 +1,26 @@
+$main-image-width: 300px;
+
+:host {
+  margin-top: 35%;
+  position: relative;
+
+  img.front {
+    max-width: $main-image-width;
+  }
+
+  .c-light {
+    background: red;
+    position: absolute;
+    top: 50%;
+    display: table;
+
+    &.left {
+      left: 22%;
+    }
+
+    &.right {
+      right: 22%;
+    }
+  }
+
+}

@@ -1,20 +1,24 @@
 :host {
   width: 100%;
+  display: block;
+  clear: both;
 
   .container {
     float: left;
-    width: 33%;
-    min-width: 33%;
+    width: 50%;
+    min-width: 50%;
     height: 100%;
     position: relative;
     overflow: hidden;
 
+    &.front {
+      text-align: center;
+      z-index: 1000;
+    }
+
     &.overhead {
       text-align: center;
       z-index: 1000;
-      background: #303030;
-      border-left: 1px solid #a9a9a9;
-      border-right: 1px solid #a9a9a9;
 
       [wrx-overhead] {
         top: 17%;

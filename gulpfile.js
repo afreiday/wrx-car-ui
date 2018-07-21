@@ -70,6 +70,7 @@ gulp.task('watch', function() {
       'client/src/**/*.scss'
     ], ['webpack']
   );
+  gulp.watch('app/**/*.ts', ['typescript']);
 });
 
 gulp.task('dev', ['start'], function() {

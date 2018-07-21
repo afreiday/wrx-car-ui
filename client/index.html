@@ -5,11 +5,13 @@
     <style>
       body {
         font-family: "DejaVu Sans Bold", sans-serif;
-        background: rgb(37,37,37); /* Old browsers */
-        background: -moz-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%, rgba(26,26,26,1) 100%); /* FF3.6-15 */
-        background: -webkit-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%); /* Chrome10-25,Safari5.1-6 */
-        background: radial-gradient(ellipse at center,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#252525', endColorstr='#1a1a1a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        background: rgb(37,37,37);
+          /*
+        background: -moz-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%, rgba(26,26,26,1) 100%);
+        background: -webkit-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%);
+        background: radial-gradient(ellipse at center,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#252525', endColorstr='#1a1a1a',GradientType=1 );
+          */
 
         min-height: 100%;
         margin: 0;
@@ -17,6 +19,12 @@
         color: #4e4e4e;
         top: -15px;
         position: relative;
+      }
+
+      raw {
+        display: block;
+        width: 100%;
+        clear: both;
       }
     </style>
 
@@ -28,10 +36,12 @@
 
       function setup_display(data) {
         socket.on(data, function(msg) {
-          var el = document.getElementById(data.toLowerCase());
-          if (el) {
-            el.innerText = msg;
-          }
+          try {
+            var el = document.getElementById(data.toLowerCase());
+            if (el) {
+              el.innerText = msg;
+            }
+          } catch (e) {}
           state[data.toLowerCase()] = msg;
 
           window.dispatchEvent(new CustomEvent('state_update', { state:  state }));
@@ -89,7 +99,7 @@
     </div>
     -->
 
-    <div>
+    <div class="raw">
       <p>CAN</p>
       <p>Accelerator pressure: <span id="accelerator"></span>%</p>
       <p>Brake pressure: <span id="brake"></span>%</p>
