@@ -12,6 +12,7 @@ export class CanParser extends Parser {
   private WHEEL_SPEED_LR = new ParserPair('d4', 'WHEEL_SPEED_LR');
   private WHEEL_SPEED_RR = new ParserPair('d4', 'WHEEL_SPEED_RR');
   private TURN_SIGNAL = new ParserPair('282', 'TURN_SIGNAL');
+  private LIGHTS = new ParserPair('152', 'LIGHTS');
 
   private capablePids: string[] = [
     this.ACCELERATOR.id,
@@ -19,6 +20,7 @@ export class CanParser extends Parser {
     this.STEERING.id,
     this.WHEEL_SPEED_LF.id,
     this.TURN_SIGNAL.id,
+    this.LIGHTS.id,
   ];
 
   private parsers: DataParser[] = [
@@ -67,6 +69,18 @@ export class CanParser extends Parser {
         return '-';
       }
 
+    }),
+    new DataParser(this.LIGHTS, (data: any) => {
+      const bits = data[7].toString('2');
+      const bit1 = bits[4] == 1;
+      const bit2 = bits[5] == 1;
+      if (bit1) {
+        return 'P';
+      } else if (bit2) {
+        return 'N';
+      } else {
+        return 'D';
+      }
     }),
   ];
 
