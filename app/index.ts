@@ -6,10 +6,13 @@ import * as command_line_args from 'command-line-args';
 
 import { Parser, ObdParser, CanParser, ObdPid } from './parsers';
 import { ObdRequester } from './obdrequester';
+import { BlynkService } from './services';
 
 class Server {
   public static readonly DEFAULT_SOCKET: string = 'vcan0';
   public static readonly DEFAULT_PORT: number = 3000;
+  public static readonly DEFAULT_AUTH_TOKEN: string = 'bed1f10d196c4ff1afb89dbc19688de8';
+  public static readonly DEFAULT_BLYNK_URL: string = 'https://192.168.0.120:7555/';
 
   private app: any;
   private server: any;
@@ -19,7 +22,7 @@ class Server {
   private parsers: Parser[];
   private requesters: ObdRequester[] = [];
 
-  constructor(private canSocket: string = 'vcan0', private port: number = 3000) {
+  constructor(private canSocket: string = 'vcan0', private port: number = 3000, private blynk: BlynkService) {
     this.app = express();
     this.server = http.createServer(this.app);
     this.io = socketio(this.server);
@@ -35,10 +38,6 @@ class Server {
       res.sendFile('index.html', { root: __dirname + '/../client/' });
     });
 
-    this.app.use(express.static('dist'));
-
-    this.app.use(express.static('client/images'));
-
     this.io.on('connection', (socket: any) => {
       console.log('connected');
       this.io.emit('connected', 'connected');
@@ -49,7 +48,7 @@ class Server {
 
       for (let parser of this.parsers) {
         if (parser.canParse(data)) {
-          parser.parseMessage(data);
+          parser.parseMessage(data, this.blynk);
         }
       }
     });
@@ -58,7 +57,7 @@ class Server {
   private initializeParsers() {
     this.parsers = [
       new ObdParser(this.io),
-      new CanParser(this.io)
+      new CanParser(this.io),
     ];
   }
 
@@ -78,12 +77,16 @@ class Server {
 
 const commandArgs = [
   { name: 'socket', alias: 's', type: String },
-  { name: 'port', alias: 'p', type: Number }
+  { name: 'port', alias: 'p', type: Number },
+  { name: 'blynk_auth_token', alias: 't', type: String },
+  { name: 'blynk_url', alias: 'b', type: String },
 ];
 
 const args: any = command_line_args(commandArgs);
 
 let socket: string = args.socket || Server.DEFAULT_SOCKET;
 let port: number = args.port || Server.DEFAULT_PORT;
+let auth_token: string = args.blynk_auth_token || Server.DEFAULT_AUTH_TOKEN;
+let blynk_url: string = args.blynk_url || Server.DEFAULT_BLYNK_URL;
 
-new Server(socket, port).run();
+new Server(socket, port, new BlynkService(auth_token, blynk_url)).run();

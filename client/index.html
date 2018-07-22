@@ -5,11 +5,6 @@
     <style>
       body {
         font-family: "DejaVu Sans Bold", sans-serif;
-        background: rgb(37,37,37); /* Old browsers */
-        background: -moz-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%, rgba(26,26,26,1) 100%); /* FF3.6-15 */
-        background: -webkit-radial-gradient(center, ellipse cover,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%); /* Chrome10-25,Safari5.1-6 */
-        background: radial-gradient(ellipse at center,  rgba(37,37,37,1) 0%,rgba(26,26,26,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#252525', endColorstr='#1a1a1a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 
         min-height: 100%;
         margin: 0;
@@ -62,34 +57,17 @@
       setup_display('TIMING_ADVANCE');
       setup_display('CATALYST_TEMPERATURE');
       setup_display('ACCELERATOR_PEDAL_POSITON');
+      setup_display('EVAP_SYSTEM_PRESSURE');
+      setup_display('INTAKE_AIR_TEMPERATURE');
+      setup_display('FUEL_PRESSURE');
+      setup_display('TIMING_ADVANCE');
+      setup_display('THROTTLE_POSITION');
+      setup_display('ABSOLUTE_LOAD');
+      setup_display('FUEL_RATE');
     </script>
   </head>
 
   <body>
-
-    <div wrx-app></div>
-
-    <!--
-    <div id="screen-guages" class="screen">
-      <div class="guage-container left">
-        <div class="guage">
-          <div class="value-display">
-            <span class="value" id="engine_rpm"></span><br />
-            <span class="units">rpm</span>
-          </div>
-        </div>
-      </div>
-      <div class="guage-container right">
-        <div class="guage">
-          <div class="value-display">
-            <span class="value" id="can_speed"></span><br />
-            <span class="units">km/h</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    -->
-
     <div>
       <p>CAN</p>
       <p>Accelerator pressure: <span id="accelerator"></span>%</p>
@@ -122,13 +100,15 @@
       <p>Catalyst temperature: <span id="catalyst_temperature"></span>&deg;C</p>
       <p>Engine runtime: <span id="engine_runtime"></span> sec</p>
       <p>Accelerator pedal position: <span id="accelerator_pedal_positon"></span>%</p>
+      <p>Evap. system pressure: <span id="evap_system_pressure"></span> Pa</p>
+      <p>Intake air temperature: <span id="intake_air_temperature"></span>&degC;</p>
+      <p>Fuel pressure: <span id="fuel_pressure"></span> kPa</p>
+      <p>Timing advance: <span id="timing_advance"></span>&deg;</p>
+      <p>Throttle position: <span id="throttle_position"></span>%</p>
+      <p>Absolute load: <span id="absolute_load"></span>%</p>
+      <p>Fuel rate: <span id="fuel_rate"></span> L/h</p>
     </div>
-
-		<!-- angular -->
-		<script src="polyfills.js"></script>
-		<script src="vendor.js"></script>
 		<script src="app.js"></script>
-
   </body>
 
 </html>

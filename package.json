@@ -32,6 +32,7 @@
     "null-loader": "^0.1.1",
     "raw-loader": "^0.5.1",
     "rawcan": "^1.1.4",
+    "request": "^2.87.0",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.6",
     "socket.io": "^2.0.3",

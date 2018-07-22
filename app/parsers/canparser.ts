@@ -1,6 +1,7 @@
 import { Parser } from './parser';
 import { DataParser, CanSpeedParser } from './data';
 import { ParserPair } from './parserpair';
+import { BlynkService } from '../services';
 
 export class CanParser extends Parser {
   private ACCELERATOR = new ParserPair('140', 'ACCELERATOR');
@@ -23,10 +24,12 @@ export class CanParser extends Parser {
     this.LIGHTS.id,
   ];
 
+  private lastLog: any = { };
+
   private parsers: DataParser[] = [
     new DataParser(this.ACCELERATOR, (data: any) => {
       return data[0] / 256 * 100;
-    }),
+    }, 'V2'),
     new DataParser(this.BRAKE, (data: any) => {
       return data[2] / 256 * 100;
     }),
@@ -35,22 +38,19 @@ export class CanParser extends Parser {
       var b2 = data[1];
       var max = 32 * 256;
       var position = 0;
-      var direction = '';
 
       if (b1 >= 230) { // 0xe6
         // turning right
         position = ((256 - b1) * 256 + b2) / max;
-        direction = 'R';
       } else {
         // turning left
-        position = (b1 * 256 + b2) / max;
-        direction = 'L';
+        position = (b1 * 256 + b2) / max * -1;
       }
 
       position *= 100;
 
-      return direction + '' + position;
-    }),
+      return position;
+    }, 'V8'),
     new CanSpeedParser(this.CAN_SPEED, 1),
     new CanSpeedParser(this.WHEEL_SPEED_LF, 1),
     new CanSpeedParser(this.WHEEL_SPEED_RF, 2),
@@ -88,10 +88,11 @@ export class CanParser extends Parser {
     super(io);
   }
 
-  parseMessage(msg: any) {
+  parseMessage(msg: any, blynk: BlynkService) {
     for(let parser of this.parsers) {
       if (parser.canParse(msg.id.toString(16))) {
-        parser.parse(this.io, msg.data);
+        let value = parser.parse(this.io, msg.data);
+        blynk.logValue(parser.blynkPin, value);
       }
     }
   }
