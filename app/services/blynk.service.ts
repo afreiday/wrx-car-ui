@@ -1,7 +1,7 @@
 const request = require('request');
 
 export class BlynkService {
-  private const BLYNK_MAX_SEND_MS = 500;
+  private readonly BLYNK_MAX_SEND_MS = 500;
   private lastLog: any = { };
 
   public constructor(private token: string, private url: string) { }

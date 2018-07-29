@@ -19,7 +19,7 @@ class Server {
   private io: any;
   private socket: any;
 
-  private parsers: Parser[];
+  private parsers: Parser[] = [];
   private requesters: ObdRequester[] = [];
 
   constructor(private canSocket: string = 'vcan0', private port: number = 3000, private blynk: BlynkService) {
