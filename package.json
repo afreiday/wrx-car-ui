@@ -24,16 +24,12 @@
     "angular2-template-loader": "^0.6.2",
     "command-line-args": "^4.0.7",
     "express": "^4.15.3",
-    "file-loader": "^0.11.2",
     "gulp": "^3.9.1",
     "rawcan": "^1.1.4",
     "request": "^2.87.0",
     "socket.io": "^2.0.3",
-    "style-loader": "^0.18.2",
-    "to-string-loader": "^1.1.5",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.2",
-    "typings": "^2.1.1"
+    "typescript": "^2.4.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
