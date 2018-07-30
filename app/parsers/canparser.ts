@@ -12,7 +12,8 @@ export class CanParser extends Parser {
   private WHEEL_SPEED_RF = new ParserPair('d4', 'WHEEL_SPEED_RF');
   private WHEEL_SPEED_LR = new ParserPair('d4', 'WHEEL_SPEED_LR');
   private WHEEL_SPEED_RR = new ParserPair('d4', 'WHEEL_SPEED_RR');
-  private TURN_SIGNAL = new ParserPair('282', 'TURN_SIGNAL');
+  private TURN_SIGNAL_L = new ParserPair('282', 'TURN_SIGNAL_L');
+  private TURN_SIGNAL_R = new ParserPair('282', 'TURN_SIGNAL_R');
   private LIGHTS = new ParserPair('152', 'LIGHTS');
 
   private capablePids: string[] = [
@@ -20,7 +21,8 @@ export class CanParser extends Parser {
     this.BRAKE.id,
     this.STEERING.id,
     this.WHEEL_SPEED_LF.id,
-    this.TURN_SIGNAL.id,
+    this.TURN_SIGNAL_L.id,
+    this.TURN_SIGNAL_R.id,
     this.LIGHTS.id,
   ];
 
@@ -56,20 +58,26 @@ export class CanParser extends Parser {
     new CanSpeedParser(this.WHEEL_SPEED_RF, 2),
     new CanSpeedParser(this.WHEEL_SPEED_LR, 3),
     new CanSpeedParser(this.WHEEL_SPEED_RR, 4),
-    new DataParser(this.TURN_SIGNAL, (data: any) => {
+    new DataParser(this.TURN_SIGNAL_L, (data: any) => {
       const left_bit = 5;
-      const right_bit = 6;
       const bits = data[5].toString('2');
 
       if (bits[(bits.length - 1) - (left_bit - 1)] == '1') { // 0x10 == 10000
-        return 'L';
-      } else if (bits[(bits.length - 1) - (right_bit - 1)] == '1') { // 0x20 == 100000
-        return 'R';
+        return 255;
       } else {
-        return '-';
+        return 0;
       }
+    }, 'V10'),
+    new DataParser(this.TURN_SIGNAL_R, (data: any) => {
+      const right_bit = 6;
+      const bits = data[5].toString('2');
 
-    }),
+      if (bits[(bits.length - 1) - (right_bit - 1)] == '1') { // 0x20 == 100000
+        return 255;
+      } else {
+        return 0;
+      }
+    }, 'V11'),
     new DataParser(this.LIGHTS, (data: any) => {
       const bits = data[7].toString('2');
       const bit1 = bits[4] == 1;
