@@ -54,10 +54,10 @@ export class CanParser extends Parser {
       return position;
     }, 'V8'),
     new CanSpeedParser(this.CAN_SPEED, 1),
-    new CanSpeedParser(this.WHEEL_SPEED_LF, 1),
-    new CanSpeedParser(this.WHEEL_SPEED_RF, 2),
-    new CanSpeedParser(this.WHEEL_SPEED_LR, 3),
-    new CanSpeedParser(this.WHEEL_SPEED_RR, 4),
+    new CanSpeedParser(this.WHEEL_SPEED_LF, 1, "V20"),
+    new CanSpeedParser(this.WHEEL_SPEED_RF, 2, "V21"),
+    new CanSpeedParser(this.WHEEL_SPEED_LR, 3, "V22"),
+    new CanSpeedParser(this.WHEEL_SPEED_RR, 4, "V23"),
     new DataParser(this.TURN_SIGNAL_L, (data: any) => {
       const left_bit = 5;
       const bits = data[5].toString('2');
